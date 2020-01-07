@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\Grigorie\.Rider2019.2\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\Grigorie\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_TowerDefense_01.-1437327985.00" t="ExcludeRecursive" />
+    <e p="E:\Unity\TowerDefense_01\TowerDefense_01" t="IncludeRecursive">
+      <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
+      <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
+      <e p="Assets" t="Include">
+        <e p="Editor" t="Include">
+          <e p="PathEditor.cs" t="Include" />
+        </e>
+        <e p="Scripts" t="Include">
+          <e p="EnemySpawner.cs" t="Include" />
+          <e p="FireEnemy.cs" t="Include" />
+          <e p="FireTower.cs" t="Include" />
+          <e p="FollowPath.cs" t="Include" />
+          <e p="GameManager.cs" t="Include" />
+          <e p="HealthBar.cs" t="Include" />
+          <e p="Hover.cs" t="Include" />
+          <e p="MountTower.cs" t="Include" />
+          <e p="Path.cs" t="Include" />
+          <e p="PathCreator.cs" t="Include" />
+          <e p="Projectile.cs" t="Include" />
+          <e p="Singleton.cs" t="Include" />
+          <e p="TowerButton.cs" t="Include" />
+        </e>
+        <e p="TestScript.cs" t="Include" />
+      </e>
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="Packages" t="ExcludeRecursive" />
+      <e p="Temp\bin" t="ExcludeRecursive" />
+      <e p="TowerDefense_01.sln" t="IncludeFlat" />
+    </e>
+  </component>
+</project>
