@@ -4,69 +4,57 @@ using System.Collections.Generic;
 using System.Net.Http.Headers;
 using UnityEngine;
 
+/// <summary>
+/// Script for each tower
+/// </summary>
 public class FireTower : MonoBehaviour
 {
-    /// <summary>
-    /// Script for each tower
-    /// </summary>
     
-    [SerializeField] private float speedModifier;
-    private bool direction;
+    [SerializeField] 
+    private int cost = 0;
 
-    [SerializeField] private int cost;
-
-    private GameObject range;
+    private SpriteRenderer range;
     private bool isSelected = false;
     private Canvas canvas;
-    
     private Animator anim;
+
+    private const string animName = "Fire";
+    private const string rangeObject = "Tower_01_Range_Green";
+
     void Start()
     {
-        
         anim = GetComponentInChildren<Animator>();
-        
-        //Removing money after it was palced
         GameManager.Instance.Currency -= cost;
         
-        //Getting the tower range visuals
-        range = gameObject.transform.Find("Tower_01_Range_Green").gameObject;
+        range = gameObject.transform.Find(rangeObject).GetComponent<SpriteRenderer>();
         canvas = GetComponentInChildren<Canvas>();
         canvas.enabled = false;
     }
 
-    private void OnDestroy()
-    {
-        //Selling the tower returns half of the cost
-        GameManager.Instance.Currency += cost / 2;
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        anim.SetTrigger("Fire");
+        anim.SetTrigger(animName);
     }
 
     private void OnMouseDown()
     {
-        //Clicking the tower will bring up the range and sell button
-        
         if (!isSelected)
         {
-            range.GetComponent<SpriteRenderer>().enabled = true;
-            isSelected = !isSelected;
+            range.enabled = true;
+            isSelected = true;
             canvas.enabled = true;
         }
         else
         {
-            range.GetComponent<SpriteRenderer>().enabled = false;
-            isSelected = !isSelected;
+            range.enabled = false;
+            isSelected = false;
             canvas.enabled = false;
         }
-        
     }
 
     public void SellTower()
     {
+        GameManager.Instance.Currency += cost / 2;
         Destroy(gameObject);
     }
 }

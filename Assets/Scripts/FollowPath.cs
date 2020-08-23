@@ -7,65 +7,39 @@ using Random = UnityEngine.Random;
 
 public class FollowPath : MonoBehaviour
 {
-    [SerializeField] private Sprite[] enemiesSprite;
-    private SpriteRenderer currentSprite;
+    [SerializeField]
+    private Sprite[] enemiesSprite = null;
+    [SerializeField]
+    private GameObject pathToFollow = null;
+    [SerializeField] 
+    private float[] speedModifier = null;
+    [SerializeField] 
+    private float[] health = null;
+    [SerializeField] 
+    private float currentHealth = 0f;
     
-    [SerializeField] private GameObject pathToFollow;
     private PathCreator currentPath;
-
-    [SerializeField] private float[] speedModifier;
-    
-
-    public float[] SpeedModifier
-    {
-        get => speedModifier;
-        set => speedModifier = value;
-    }
-
+    private SpriteRenderer currentSprite;
     private float timeParam;
-
-    [SerializeField] private float[] health;
-
     private int[] damage = new int[] {3, 2, 1};
-
     private int currentDamage;
-
-    public float[] Health
-    {
-        get => health;
-    }
-
     private float currentMaxHp;
-    [SerializeField] private float currentHealth;
-
-    public float CurrentHealth
-    {
-        get => currentHealth;
-        set => currentHealth = value;
-    }
-
     private bool coroutineAloud;
-
     private Vector2 newPos;
     private int segments;
     private int currentSegment;
-
     private bool isSlowed = false;
     private float slowTime = 2f;
-
     private bool isStuned = false;
     private float stunTime = 1f;
     private float debuffCounter = 0;
-
     private bool isOnFire = false;
     private int fireTimes = 0;
     private float fireTime = 1f;
     private float fireDamage = .5f;
-
-    private int type;
+    private int type = 0;
     private float currentSpeed;
 
-    public int Type => type;
 
     private void Start()
     {
@@ -75,10 +49,8 @@ public class FollowPath : MonoBehaviour
         segments = currentPath.path.NumSegments;
         currentSegment = 0;
         currentSprite = GetComponent<SpriteRenderer>();
-        setType(Random.Range(0,3));
+        setType(Random.Range(0, 3));
     }
-
-  
 
     private void Update()
     {
@@ -86,27 +58,21 @@ public class FollowPath : MonoBehaviour
         {
             StartCoroutine(FollowRouteRoutine(currentSegment));
         }
-        
-        // Enemies runnig out of hp die
         if (CurrentHealth <= 0)
         {
             Destroy(gameObject);
             GameManager.Instance.Currency++;
             EnemySpawner.Instance.EnemyCount--;
         }
-        
         removeStunSlow();
         if (isOnFire)
         {
             OnFire();
         }
-        
     }
 
     public void setType(int entype)
     {
-        //setting the type of the enemy (heave, medium, light)
-        
         currentMaxHp = health[entype];
         currentHealth = currentMaxHp;
         currentSpeed = speedModifier[entype];
@@ -116,15 +82,11 @@ public class FollowPath : MonoBehaviour
 
     public void SetHpBar()
     {
-        //setting the hp bar of each individual enemy
-        
         GetComponentInChildren<HealthBar>().SetSize(currentHealth/currentMaxHp);
     }
 
     public void IncreaseHp()
     {
-        //Increase enemies hp to raise the difficulty
-        
         for (int i = 0; i < health.Length; i++)
         {
             health[i] += 5;
@@ -133,8 +95,6 @@ public class FollowPath : MonoBehaviour
     
     private IEnumerator FollowRouteRoutine(int segmentFollow)
     {
-        //Enemies following the bezier curve
-        
         coroutineAloud = false;
 
         Vector2[] route = new[]
@@ -164,8 +124,6 @@ public class FollowPath : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        //Enemies hitting the base
-        
         if (other.tag == "ExitHouse")
         {
             Destroy(gameObject);
@@ -175,8 +133,6 @@ public class FollowPath : MonoBehaviour
 
     private void removeStunSlow()
     {
-        //Removing the stun/slow after the respective debuff time has passed
-        
         if (isStuned)
         {
             debuffCounter += Time.deltaTime;
@@ -200,13 +156,10 @@ public class FollowPath : MonoBehaviour
                 debuffCounter = 0;
             }
         }
-        
     }
 
     public void Stun()
     {
-        //stun debuff
-        
         if (!isStuned)
         {
             isStuned = true;
@@ -217,8 +170,6 @@ public class FollowPath : MonoBehaviour
 
     public void Slow()
     {
-        //slow debuff
-        
         if (!isSlowed && !isStuned)
         {
             isSlowed = true;
@@ -237,8 +188,6 @@ public class FollowPath : MonoBehaviour
 
     public void OnFire()
     {
-        // Fire over time debuff
-        
         if (isOnFire)
         {
             debuffCounter += Time.deltaTime;
@@ -257,11 +206,30 @@ public class FollowPath : MonoBehaviour
                 isOnFire = false;
             }
         }
-        
     }
-    
-    
-    
+
+    #region Properties
+
+    public float[] SpeedModifier
+    {
+        get => speedModifier;
+        set => speedModifier = value;
+    }
+
+    public float[] Health
+    {
+        get => health;
+    }
+
+    public float CurrentHealth
+    {
+        get => currentHealth;
+        set => currentHealth = value;
+    }
+
+    public int Type => type;
+    #endregion
+
 }
 
 

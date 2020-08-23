@@ -18,4 +18,21 @@ public abstract class Singleton<T>: MonoBehaviour where T: MonoBehaviour
             return instance;
         }
     }
+
+    private void Awake()
+    {
+        if(instance != null)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (instance != null)
+        {
+            instance = null;
+        }
+    }
+
 }

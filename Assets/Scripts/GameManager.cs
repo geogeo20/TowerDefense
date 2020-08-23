@@ -11,15 +11,17 @@ public class GameManager : Singleton<GameManager>
     /// <summary>
     /// Script for different purposes all over the game
     /// </summary>
-    
-    
-    [SerializeField] private GameObject menu;    
+
+
+    [SerializeField]
+    private GameObject menu = null;    
 
     public TowerButton ClickedButton { get; private set; }
 
     private bool towerPicked = false;
 
-    [SerializeField] private Text currencyTxt;
+    [SerializeField] 
+    private Text currencyTxt = null;
     [FormerlySerializedAs("currency")] [SerializeField] private int currency;
 
     public int Currency

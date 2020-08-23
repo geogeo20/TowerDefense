@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Hover : Singleton<Hover>
-{    
+{
     [SerializeField]
-    private GameObject[] ranges;
+    private GameObject[] ranges = null;
 
     private SpriteRenderer sprite;
     // Start is called before the first frame update

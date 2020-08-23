@@ -25,7 +25,7 @@ public class FireEnemy : MonoBehaviour
     [SerializeField]
     private float attackCooldown = 1f;
 
-    [SerializeField] private GameObject projectileType;
+    [SerializeField] private GameObject projectileType = null;
 
     [SerializeField] private float projectileSpeed = 3f;
 
